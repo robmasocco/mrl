@@ -3,19 +3,25 @@
 ### 1. States
 - Each board is a state.
 - A board is represented witha a 3x3 matrix.
-- Each cell can be filled with None, X or O, numerically represented with 0, 1, 2.
-- Number of possible boards = Number of states = 3^9 = **19683**.
+- Each cell can be filled with None, X or O, numerically represented with 0, 1 and 2.
+- Number of possible boards = 3^9 = 19683.
 - Many boards aren't possible:
     - Number of X is strictly less than that of O.
     - Number of X minus number of O is strictly greater than 1.
-- Many boards are equal
+- Many boards are equal:
     - Rotations of 90 degree.
-    - How to handle impossible boards?
+- Next player to play: if the number of Xs minus the number of Os is equal to 0 is the first 
 - Termianl states: 
-    - The board is full. It's a draw, no winner.
     - Three Xs or Os in a horizontal, vertical or diagonal row (8 possibilities).
+    - The board is full and no winner, it's a draw.
     - How many terminal states?
 - The state associated with a board is the representation in base 3 of the number obtained by flattering the matrix.
+- Define the states only for valid e unique boards.
+- Create a lookup table!
+- Each board has some info:
+    1. The type of the board: -1 not valid, 0 not terminal, 1 terminal
+    2. The winner or the next playet to play.
+    3. The associated state. For each board, search if a its rotation match with a previous one, otherwise define a new incremental state.
 - Use **afterstates**: a tranisiton from a state s to a new state s' depens on the moves of the Agent and of the Opponent.
 
 ### 2. Actions
