@@ -6,11 +6,11 @@
 - Each cell can be filled with None, X or O, numerically represented with 0, 1 and 2.
 - Number of possible boards = 3^9 = 19683.
 - Many boards aren't possible:
-    - Number of X is strictly less than that of O.
-    - Number of X minus number of O is strictly greater than 1.
+    - Number of Xs is strictly less than that of Os.
+    - Number of Xs minus number of Os is strictly less than 0 or strictly greater than 1.
 - Many boards are equal:
     - Rotations of 90 degree.
-- Next player to play: if the number of Xs minus the number of Os is equal to 0 is the first 
+- Next player to play: if the number of Xs minus the number of Os is equal to 0 is the X player's turn, else if it's 1 is the O player's turn, else not valid board.
 - Termianl states: 
     - Three Xs or Os in a horizontal, vertical or diagonal row (8 possibilities).
     - The board is full and no winner, it's a draw.
@@ -19,9 +19,9 @@
 - Define the states only for valid e unique boards.
 - Create a lookup table!
 - Each board has some info:
-    1. The type of the board: -1 not valid, 0 not terminal, 1 terminal
-    2. The winner or the next playet to play.
-    3. The associated state. For each board, search if a its rotation match with a previous one, otherwise define a new incremental state.
+    1. The type of the board: -1 not valid, 1 terminal, 0 otherwise.
+    2. If it's terminal the winner or the next player to play.
+    3. The associated state. For each board, search if a its rotation matches with a previous one, otherwise define a new state.
 - Use **afterstates**: a tranisiton from a state s to a new state s' depens on the moves of the Agent and of the Opponent.
 
 ### 2. Actions
