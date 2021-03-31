@@ -15,7 +15,7 @@
     - Three Xs or Os in a horizontal, vertical or diagonal row (8 possibilities).
     - The board is full and no winner, it's a draw.
     - How many terminal states?
-- The state associated with a board is the representation in base 3 of the number obtained by flattering the matrix.
+- The value associated with a board is the representation in base 3 of the number obtained by flattering the matrix.
 - Define the states only for valid e unique boards.
 - Create a lookup table, and a reverse lookup table!
 - Each board has some info:
