@@ -17,7 +17,7 @@
     - How many terminal states?
 - The state associated with a board is the representation in base 3 of the number obtained by flattering the matrix.
 - Define the states only for valid e unique boards.
-- Create a lookup table!
+- Create a lookup table, and a reverse lookup table!
 - Each board has some info:
     1. The type of the board: -1 not valid, 1 terminal, 0 otherwise.
     2. If it's terminal the winner or the next player to play.
