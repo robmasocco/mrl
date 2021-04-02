@@ -36,7 +36,7 @@ def policy_improv(P, R, gamma, v_pi):
     # Number of actions.
     A = R.shape[1]
     # Initialize new policy vector.
-    pi = np.zeros(S)
+    pi = np.zeros(S, dtype=np.int8)
     # Policy improvement loop.
     q = np.zeros(A)
     for s in range(S):
@@ -70,7 +70,7 @@ def value_iteration(P, R, gamma, v_init, tol=1.0e-6):
     # Number of actions.
     A = R.shape[1]
     # Initialize policy vector.
-    pi = np.zeros(S)
+    pi = np.zeros(S, dtype=np.int8)
     # Initialize policy value vectors.
     v = np.zeros(S)
     q = np.zeros(A)
