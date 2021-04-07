@@ -36,7 +36,7 @@ def policy_improv(P, R, gamma, v_pi):
     # Number of actions.
     A = R.shape[1]
     # Initialize new policy vector.
-    pi = np.zeros(S, dtype=np.int8)
+    pi = np.zeros(S, dtype=np.int64)
     # Policy improvement loop.
     q = np.zeros(A)
     for s in range(S):
