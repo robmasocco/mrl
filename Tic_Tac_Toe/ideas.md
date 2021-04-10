@@ -1,8 +1,11 @@
 # TIC TAC TOE
+
 ## Markov Decision Process
+
 ### 1. States
+
 - Each board is a state.
-- A board is represented witha a 3x3 matrix.
+- A board is represented with a 3x3 matrix.
 - Each cell can be filled with None, X or O, numerically represented with 0, 1 and 2.
 - Number of possible boards = 3^9 = 19683.
 - Many boards aren't possible:
@@ -22,7 +25,7 @@
     1. The type of the board: -1 not valid, 1 terminal, 0 otherwise.
     2. If it's terminal the winner or the next player to play.
     3. The associated state. For each board, search if a its rotation matches with a previous one, otherwise define a new state.
-- Use **afterstates**: a tranisiton from a state s to a new state s' depens on the moves of the Agent and of the Opponent.
+- Use **afterstates**: a transition from a state s to a new state s' depends on the moves of the Agent and of the Opponent.
 
 ### 2. Actions
 - An action is where to palce a mark on the borad.
