@@ -14,7 +14,10 @@ def board_to_id(board):
     return id
 
 def board_to_ids(board):
-    """Takes a board matrix and returns the IDs of all its rotations and symmetries with the relative transformations."""
+    """
+    Takes a board matrix and returns the IDs of all its rotations
+    and symmetries with the relative transformations
+    """
     # Define an empty matrix for the IDs.
     ids = np.empty([0, 3], dtype=np.int32)
     # No flip.
@@ -36,10 +39,13 @@ def board_to_ids(board):
 def id_to_board(id):
     """Takes a base-10 board ID and returns a board matrix."""
     board_str = np.base_repr(id, base=3).zfill(9)
-    return np.array(list(board_str), dtype=np.int8).reshape(3, 3)
+    return np.array(list(board_str), dtype=np.int32).reshape(3, 3)
 
 def find_win(board, marker):
-    """Takes a board matrix and checks if there are 3 equal markers in a row horizontal, vertical or diagonal."""
+    """
+    Takes a board matrix and checks if there are 3 equal markers
+    in a row horizontal, vertical or diagonal.
+    """
     # Checks the rows.
     for row in board:
         if np.all(row == marker):
@@ -61,7 +67,10 @@ def find_win(board, marker):
     return False
 
 def board_info(board):
-    """Takes a board matrix and returns its information: terminal, valid or invalid board and the winner or the next player."""
+    """
+    Takes a board matrix and returns its information: terminal, valid or
+    invalid board and the winner or the next player.
+    """
     xs = np.count_nonzero(board == 1)
     os = np.count_nonzero(board == 2)
     # Switch according to the difference of the markers.
@@ -113,6 +122,7 @@ def get_actions(id):
     return np.where(flat_board == flat_board.min())[0]
 
 def print_board(B):
+    """Prints a board configuration in a human-friendly way."""
     for i in range(3):
         for j in range(3):
             if B[i, j] == 1:

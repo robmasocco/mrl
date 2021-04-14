@@ -70,18 +70,20 @@ def value_iteration(P, R, gamma, v_init, tol=1.0e-6):
     # Number of actions.
     A = R.shape[1]
     # Initialize policy vector.
-    pi = np.zeros(S, dtype=np.int8)
+    pi = np.zeros(S, dtype=np.int32)
     # Initialize policy value vectors.
-    v = np.zeros(S)
-    q = np.zeros(A)
+    v = np.zeros(S, dtype=np.float128)
+    q = np.zeros(A, dtype=np.float128)
     # Value iteration loop.
     prev_v = np.copy(v_init)
     while True:
         for s in range(S):
             q.fill(0.0)
             for a in range(A):
-                p_trans = P[s, :, a]
-                q[a] = R[s, a] + gamma*np.dot(p_trans, prev_v)
+                p_trans = np.copy(P[s, :, a])
+                #q[a] = R[s, a] + gamma*np.dot(p_trans, prev_v)
+                q[a] = R[s, a] + gamma*np.matmul(p_trans, prev_v, dtype=np.float128)
+            #print(np.linalg.norm(q))
             pi[s] = np.argmax(q)
             v[s] = q[pi[s]]
         temp = v - prev_v
