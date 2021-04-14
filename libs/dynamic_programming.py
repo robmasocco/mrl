@@ -84,6 +84,8 @@ def value_iteration(P, R, gamma, v_init, tol=1.0e-6):
                 q[a] = R[s, a] + gamma*np.dot(p_trans, prev_v)
             pi[s] = np.argmax(q)
             v[s] = q[pi[s]]
+        temp = v - prev_v
+        print(np.linalg.norm(v - prev_v),  np.count_nonzero(temp != 0.0))
         if np.linalg.norm(v - prev_v) < tol:
             break
         else:

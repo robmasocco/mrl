@@ -127,3 +127,4 @@ def print_board(B):
                 print()
         if i != 2:
             print("---+---+---")
+    print("###########")
