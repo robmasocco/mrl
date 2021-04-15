@@ -123,6 +123,7 @@ def get_actions(id):
 
 def print_board(B):
     """Prints a board configuration in a human-friendly way."""
+    print("###########")
     for i in range(3):
         for j in range(3):
             if B[i, j] == 1:
