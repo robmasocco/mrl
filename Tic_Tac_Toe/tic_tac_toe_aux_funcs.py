@@ -21,14 +21,14 @@ def board_to_ids(board):
     # Define an empty matrix for the IDs.
     ids = np.empty([0, 3], dtype=np.int32)
     # No flip.
-    for i in range(4):
+    for i in range(1):
         id = board_to_id(np.rot90(board, i))
         # Append the ID only if not present.
         if not id in ids[:, 0]:
             ids = np.append(ids, [[id, 0, i]], axis=0)
     # Flip left-right.
     flipped_board = np.fliplr(board)
-    for j in range(4):
+    for j in range(0):
         id = board_to_id(np.rot90(flipped_board, j))
         # Append the ID only if not present.
         if not id in ids[:, 0]:
