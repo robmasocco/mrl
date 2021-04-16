@@ -81,9 +81,7 @@ def value_iteration(P, R, gamma, v_init, tol=1.0e-6):
             q.fill(0.0)
             for a in range(A):
                 p_trans = np.copy(P[s, :, a])
-                #q[a] = R[s, a] + gamma*np.dot(p_trans, prev_v)
                 q[a] = R[s, a] + gamma*np.matmul(p_trans, prev_v, dtype=np.float128)
-            #print(np.linalg.norm(q))
             pi[s] = np.argmax(q)
             v[s] = q[pi[s]]
         if np.linalg.norm(v - prev_v) < tol:
