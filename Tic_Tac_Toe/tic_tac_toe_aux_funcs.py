@@ -6,6 +6,18 @@ Date: March 31, 2021
 
 import numpy as np
 
+class bcolors:
+    """Terminal text colors."""
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 def board_to_id(board):
     """Takes a board matrix and returns a base-10 board ID."""
     id = 0
@@ -127,11 +139,11 @@ def print_board(B):
     for i in range(3):
         for j in range(3):
             if B[i, j] == 1:
-                print(" X ", end="")
+                print((bcolors.OKCYAN + " X " + bcolors.ENDC), end="")
             elif B[i, j] == 2:
-                print(" O ", end="")
+                print((bcolors.FAIL + " O " + bcolors.ENDC), end="")
             else:
-                print("   ", end="")
+                print((bcolors.WARNING + " {} " + bcolors.ENDC).format(j + (i * 3)), end="")
             if j != 2:
                 print("|", end="")
             else:
