@@ -6,18 +6,18 @@ import numpy as np
 
 class Blackjack:
 
-    def __init__(self, init_s, init_a, pi):
+    def __init__(self, init_s, pi, epsilon):
         # State of the game.
         self.s = init_s
-        # First action to take.
-        self.init_a = init_a
         # Game set up.
-        self.hand, self.dealer, self.ace = np.asarray(np.unravel_index(self.s, (10, 10, 2))) + [12, 1, 0]
-        # Game policy.
+        self.hand, self.dealer, self.ace = np.asarray(np.unravel_index(self.s, (10, 10, 2), order='F')) + [12, 1, 1]
+        # Policy.
         self.pi = pi
+        # Degree of exploration.
+        self.epsilon = epsilon
         # Data of the episode.
-        self.states = np.array(init_s, dtype=np.int32)
-        self.actions = np.empty(0, dtype=np.float64)
+        self.states = np.empty(0, dtype=np.int32)
+        self.actions = np.empty(0, dtype=np.int32)
         self.rewards = np.empty(0, dtype=np.float64)
 
     def hit(self):
@@ -30,7 +30,7 @@ class Blackjack:
             if self.hand > 21:
                 # Count the ace as 1.
                 self.hand -= 10
-                self.ace = 0
+                self.ace = 2
             else:
                 # Count the ace as 11.
                 self.ace = 1
@@ -39,14 +39,14 @@ class Blackjack:
             self.hand += card
             if self.hand > 21 and self.ace == 1:
                 self.hand -= 10
-                self.ace = 0
-        # New state
+                self.ace = 2
+        # Next state.
         if self.hand > 21:
             # Burst.
             self.s = -1
             return -1.0
         else:
-            self.s = np.ravel_multi_index((self.hand - 12, self.dealer - 1, self.ace), (10, 10, 2))
+            self.s = np.ravel_multi_index((self.hand - 12, self.dealer - 1, self.ace - 1), (10, 10, 2), order='F')
             return 0.0
     
     def stick(self):
@@ -55,7 +55,7 @@ class Blackjack:
             self.dealer += 10
             ace = 1
         else:
-            ace = 0
+            ace = 2
         # Hit 
         while self.dealer < 17:
             # Draw a card.
@@ -66,7 +66,7 @@ class Blackjack:
                 self.dealer += 11
                 if self.dealer > 21:
                     self.dealer -= 10
-                    ace = 0
+                    ace = 2
                 else:
                     ace = 1
             else:
@@ -74,47 +74,46 @@ class Blackjack:
                 self.dealer += card
                 if self.dealer > 21 and ace == 1:
                     self.dealer -= 10
-                    ace = 0
+                    ace = 2
         # New state
         if self.dealer > 21:
             # Burst.
             self.s = -1
-            return 1
+            return 1.0
         else:
             if self.dealer > self.hand:
                 # Defeat.
                 self.s = -1
-                return -1
+                return -1.0
             elif self.dealer == self.hand:
                 # Draw
                 self.s = -1
-                return 0
+                return 0.0
             else:
                 # Win.
                 self.s = -1
-                return 1
+                return 1.0
 
 
     def play(self):
-        print("Hand: {}\tDealer: {}".format((self.hand, self.ace), self.dealer))
         while self.s != -1:
+            # Store the state.
+            self.states = np.append(self.states, self.s)
             # Choose action.
-            if self.actions.size == 0:
-                a = self.init_a
-            else:
+            if np.random.choice([0, 1], p=[1.0 - self.epsilon, self.epsilon]) == 0:
                 a = self.pi[self.s]
-            #
+            else:
+                a = np.random.choice([0, 1])
+            # Store the action taken.
+            self.actions = np.append(self.actions, a)
+            # Play the action.
             if a == 0:
                 # Hit
                 r = self.hit()
-                print("Hand: {}\tDealer: {}".format((self.hand, self.ace), self.dealer))
             else:
                 # Stick
                 r = self.stick()
-                print("Hand: {}\tDealer: {}".format((self.hand, self.ace), self.dealer))
-            # Store
-            self.states = np.append(self.states, self.s)
-            self.actions = np.append(self.actions, self.init_a)
+            # Store the reward obtained.
             self.rewards = np.append(self.rewards, r)
         
     def get_states(self):
