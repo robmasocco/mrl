@@ -94,7 +94,6 @@ class Blackjack:
                 self.s = -1
                 return 1.0
 
-
     def play(self):
         while self.s != -1:
             # Store the state.
