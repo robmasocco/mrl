@@ -1,6 +1,6 @@
-import pygame
 import sys
 import numpy as np
+import pygame
 
 BLACK = (0, 0, 0)
 GREY = (50, 50, 50)
@@ -17,16 +17,20 @@ def generate_map():
     map[W_CELLS // 2:, H_CELLS // 2:] = 1
     lims = np.random.randint(MAX_LIM, size=4)
     for h in range(H_CELLS):
-        lims[0] = np.amax([0, np.amin([MAX_LIM, lims[0] + np.random.choice([-1, 0, 1])])])
+        lims[0] = np.amax(
+            [0, np.amin([MAX_LIM, lims[0] + np.random.choice([-1, 0, 1])])])
         map[h, :lims[0]] = 1
         if h > H_CELLS // 2:
-            lims[1] = np.amax([0, np.amin([MAX_LIM, lims[1] + np.random.choice([-1, 0, 1])])])
+            lims[1] = np.amax(
+                [0, np.amin([MAX_LIM, lims[1] + np.random.choice([-1, 0, 1])])])
             map[h, H_CELLS // 2 - lims[1]:] = 1
     for w in range(W_CELLS):
-        lims[2] = np.amax([0, np.amin([MAX_LIM, lims[2] + np.random.choice([-1, 0, 1])])])
+        lims[2] = np.amax(
+            [0, np.amin([MAX_LIM, lims[2] + np.random.choice([-1, 0, 1])])])
         map[:lims[2], w] = 1
         if w > W_CELLS // 2:
-            lims[3] = np.amax([0, np.amin([MAX_LIM, lims[3] + np.random.choice([-1, 0, 1])])]) 
+            lims[3] = np.amax(
+                [0, np.amin([MAX_LIM, lims[3] + np.random.choice([-1, 0, 1])])])
             map[W_CELLS // 2 - lims[3]:, w] = 1
     return map
 
