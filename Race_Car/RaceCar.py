@@ -36,7 +36,8 @@ class RaceCar:
 
     def map_action(self, action):
         """Returns the XY displacements for a given action."""
-        return np.asarray(np.unravel_index(action, (self.actions_x, self.actions_y)))
+        # The -1 is necessary for the reverse gear.
+        return np.asarray(np.unravel_index(action, (self.actions_x, self.actions_y))) - np.array([1, 0])
 
     def drive(self, velocity):
         """

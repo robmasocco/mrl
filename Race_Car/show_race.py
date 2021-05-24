@@ -44,7 +44,7 @@ def main():
 
     S = race_map.shape[0] * race_map.shape[1]
 
-    actions_x = 6
+    actions_x = 7
     actions_y = 6
     A = actions_x * actions_y
 
