@@ -73,7 +73,11 @@ class RaceCar:
         self.coords[0] = temp_y
 
     def run(self):
-        """Runs a race until a wall is hit or the finish line is reached."""
+        """
+        Runs a race until a wall is hit or the finish line is reached.
+        Returns True if the finish line was reached.
+        """
+        ret = False
         # Loop until a terminal state is reached.
         while self.state != -1:
             self.states = np.append(self.states, self.state)
@@ -95,10 +99,12 @@ class RaceCar:
                 # Reached finish line.
                 self.state = -1
                 self.rewards = np.append(self.rewards, 0)
+                ret = True
             else:
                 # Not done yet: reward is -1 since we weigh time.
                 self.set_state()
                 self.rewards = np.append(self.rewards, -1)
+        return ret
 
     def get_states(self):
         """Returns visited states."""
