@@ -13,7 +13,7 @@ class RaceCar:
         Models the Race Car and its runs.
     """
 
-    def __init__(self, race_map, init_coords, pi, epsilon, width, height, actions_x, actions_y):
+    def __init__(self, race_map, init_coords, pi, epsilon, actions_x, actions_y):
         """Initialize the Race Car with initial state, dimensions and other metadata."""
         self.map = race_map
         self.coords = init_coords  # These are indexes inside the race map matrix.
