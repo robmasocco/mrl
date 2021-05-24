@@ -72,7 +72,7 @@ class RaceCar:
         # Hit no obstacle: update coordinates.
         self.coords[0] = temp_y
 
-    def run(self, disp):
+    def run(self):
         """Runs a race until a wall is hit or the finish line is reached."""
         # Loop until a terminal state is reached.
         while self.state != -1:
