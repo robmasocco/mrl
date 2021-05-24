@@ -16,8 +16,8 @@ class RaceCar:
         self.actions_x = actions_x
         self.actions_y = actions_y
         self.set_state()
-        print(self.state)
-        print(self.map_state())
+        #print(self.state)
+        #print(self.map_state())
         self.pi = pi
         self.epsilon = epsilon
         self.states = np.empty(0, dtype=np.int32)
@@ -60,9 +60,10 @@ class RaceCar:
         # Hit no obstacle: update coordinates.
         self.coords[0] = temp_y
 
-    def run(self):
-        self.draw_map()
-        pygame.display.update()
+    def run(self, disp):
+        if disp:
+            self.draw_map()
+            pygame.display.update()
         while self.state != -1:
             self.states = np.append(self.states, self.state)
             # Choose action.
@@ -72,7 +73,7 @@ class RaceCar:
                 action = np.random.randint(self.actions_x * self.actions_y)
             self.actions = np.append(self.actions, action)
             velocity = self.map_action(action)
-            print("Action: {}, {}.".format(action, velocity))
+            #print("Action: {}, {}.".format(action, velocity))
             self.drive(velocity)
             if self.map[self.coords[0], self.coords[1]] == -1:
                 self.state = -1
@@ -83,9 +84,10 @@ class RaceCar:
             else:
                 self.set_state()
                 self.rewards = np.append(self.rewards, -1)
-            self.draw_map()
-            pygame.display.update()
-            self.clock.tick(1)
+            if disp:
+                self.draw_map()
+                pygame.display.update()
+                self.clock.tick(1)
         pygame.quit()
 
     def get_states(self):
