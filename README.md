@@ -1,2 +1,2 @@
 # mrl
-Repository di MRL di Rob e Tenny.
+Repository di MRL di Rob, Tenny e Giacomo.
